@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	timestart := time.Now() // used to keep track of the implementation processing time
+	timeStart := time.Now() // used to keep track of the implementation processing time
 
 	input, err := os.ReadFile("input.json") // reading the .json file
 
@@ -44,7 +44,7 @@ func main() {
 	fmt.Println(string(printOut))
 
 	// reporting the processing time
-	timeFinish := time.Since(timestart)
+	timeFinish := time.Since(timeStart)
 
 	fmt.Println(timeFinish)
 
