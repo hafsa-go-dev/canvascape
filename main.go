@@ -243,30 +243,35 @@ func transformMap(input any) (map[string]any, error) {
 
 // transform checks each "type key" "by using type checking in a switch statement
 func transform(input any) (any, error) {
-	switch n := input.(type) {
-	case map[string]any:
-		for key, value := range n {
+	n, ok := input.(map[string]any)
 
-			// sanitizing the keys of the leading and trailing whitespace
-			key = strings.TrimSpace(key)
-			switch key {
-			case "S":
-				return transformString(value)
-			case "N":
+	if !ok {
+		// mandatory return statement if all else fails, that includes an error
+		return nil, errors.New("no valid data type")
+	}
 
-				return transformNum(value)
-			case "BOOL":
-				return transformBool(value)
-			case "NULL":
-				return transformNull(value)
-			case "L":
-				return transformList(value)
-			case "M":
-				return transformMap(value)
-			}
+	for key, value := range n {
+
+		// sanitizing the keys of the leading and trailing whitespace
+		key = strings.TrimSpace(key)
+		switch key {
+		case "S":
+			return transformString(value)
+		case "N":
+
+			return transformNum(value)
+		case "BOOL":
+			return transformBool(value)
+		case "NULL":
+			return transformNull(value)
+		case "L":
+			return transformList(value)
+		case "M":
+			return transformMap(value)
 		}
 	}
 
 	// mandatory return statement if all else fails, that includes an error
 	return nil, errors.New("no valid data type")
+
 }
