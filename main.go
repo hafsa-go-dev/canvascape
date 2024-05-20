@@ -243,14 +243,14 @@ func transformMap(input any) (map[string]any, error) {
 
 // transform checks each "type key" "by using type checking in a switch statement
 func transform(input any) (any, error) {
-	n, ok := input.(map[string]any)
+	m, ok := input.(map[string]any)
 
 	if !ok {
 		// mandatory return statement if all else fails, that includes an error
 		return nil, errors.New("no valid data type")
 	}
 
-	for key, value := range n {
+	for key, value := range m {
 
 		// sanitizing the keys of the leading and trailing whitespace
 		key = strings.TrimSpace(key)
